@@ -14,11 +14,11 @@ public class SueldoService {
     @Autowired
     private SueldoRepository sueldoRepository;
 
-    @Autowired
+    /*@Autowired
     private OficinaRRHH oficinaService;
 
     @Autowired
-    private DataRelojService dataRelojService;
+    private DataRelojService dataRelojService;*/
 
     public void eliminarSueldos(){
         sueldoRepository.deleteAll();
@@ -62,7 +62,7 @@ public class SueldoService {
         return sueldoFinal;
     }
 
-    public void calcularPlanilla(List<EmpleadoModel> empleados, List<JustificativoModel> justificativos, List<DatarelojModel> marcasReloj, List<AutorizacionModel> autorizaciones){
+    /*public void calcularPlanilla(List<EmpleadoModel> empleados, List<JustificativoModel> justificativos, List<DatarelojModel> marcasReloj, List<AutorizacionModel> autorizaciones){
 
         int i=0;
         while(i<empleados.size()){
@@ -96,5 +96,5 @@ public class SueldoService {
 
             i=i+1;
         }
-    }
+    }*/
 }

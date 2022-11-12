@@ -16,9 +16,9 @@ public class SueldoController {
     @Autowired
     SueldoService sueldoService;
 
-    @GetMapping("/calcularPlanilla")
+    /*@GetMapping("/calcularPlanilla")
     public ResponseEntity<List<SueldoEntity>> calcularPlanilla(){
         List<SueldoEntity> sueldos;
         return ResponseEntity.ok(sueldos);
-    }
+    }*/
 }
