@@ -1,10 +1,13 @@
 package com.example.sueldoservice.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.sueldoservice.entity.SueldoEntity;
 import com.example.sueldoservice.model.*;
 import com.example.sueldoservice.service.SueldoService;
 
@@ -14,11 +17,16 @@ public class SueldoController {
     @Autowired
     SueldoService sueldoService;
 
-    /*@GetMapping("/calcularPlanilla")
+    @GetMapping("/calcularPlanilla")
     public ResponseEntity<List<SueldoEntity>> calcularPlanilla(){
-        List<SueldoEntity> sueldos;
+        EmpleadoModel[] empleados           = sueldoService.getEmpleados();
+        JustificativoModel[] justificativos = sueldoService.getJustificativos();
+        DatarelojModel[] marcasReloj        = sueldoService.getMarcasReloj();
+        AutorizacionModel[] autorizaciones  = sueldoService.getAutorizaciones();
+
+        List<SueldoEntity> sueldos = calcularPlanilla(empleados,justificativos,marcasReloj,autorizaciones);
         return ResponseEntity.ok(sueldos);
-    }*/
+    }
 
     @GetMapping("/getEmpleados")
     public ResponseEntity<EmpleadoModel[]> getEmpleados(){

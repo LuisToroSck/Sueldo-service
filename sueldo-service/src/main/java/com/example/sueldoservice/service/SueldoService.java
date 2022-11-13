@@ -65,18 +65,18 @@ public class SueldoService {
         return sueldoFinal;
     }
 
-    public void calcularPlanilla(List<EmpleadoModel> empleados, List<JustificativoModel> justificativos, List<DatarelojModel> marcasReloj, List<AutorizacionModel> autorizaciones){
+    public void calcularPlanilla(EmpleadoModel[] empleados, JustificativoModel[] justificativos, DatarelojModel[] marcasReloj, AutorizacionModel[] autorizaciones){
 
         int i=0;
-        while(i<empleados.size()){
+        while(i<empleados.length){
 
             // aquí hay que llamar al controlador de oficina rrhh
-            double sueldoFijoMensual            = getSueldoFijoMensual(empleados.get(i).getRutEmpleado());
-            double bonificacionPorAniosServicio = getBonificacionPorAniosServicio(empleados.get(i).getRutEmpleado());
-            double pagoHorasExtras              = oficinaService.calcularPagoHorasExtras(empleados.get(i),autorizaciones);
-            List<Integer> atrasos               = dataRelojService.calcularAtrasos(marcasReloj,empleados.get(i));
+            double sueldoFijoMensual            = getSueldoFijoMensual(empleados[i].getRutEmpleado());
+            double bonificacionPorAniosServicio = getBonificacionPorAniosServicio(empleados[i].getRutEmpleado());
+            double pagoHorasExtras              = getPagoHorasExtras(empleados[i].getRutEmpleado());
+            List<Integer> atrasos               = getAtrasos(empleados[i].getRutEmpleado());
             double descuentoPorAtraso           = oficinaService.calcularDescuentoPorAtraso(sueldoFijoMensual,atrasos);
-            double descuentoPorInasistencia     = oficinaService.calcularDescuentoPorInasistencia(sueldoFijoMensual,justificativos,empleados.get(i));
+            double descuentoPorInasistencia     = oficinaService.calcularDescuentoPorInasistencia(sueldoFijoMensual,justificativos,empleados[i]);
 
             double sueldoBruto           = calcularSueldoBruto(sueldoFijoMensual,bonificacionPorAniosServicio,pagoHorasExtras,descuentoPorAtraso,descuentoPorInasistencia);
             double cotizacionPrevisional = calcularCotizacionPrevisional(sueldoBruto);
@@ -86,7 +86,7 @@ public class SueldoService {
 
             SueldoEntity nuevoSueldo = new SueldoEntity();
 
-            nuevoSueldo.setRutEmpleado(empleados.get(i).getRutEmpleado());
+            nuevoSueldo.setRutEmpleado(empleados[i].getRutEmpleado());
             nuevoSueldo.setSueldoFijoMensual(sueldoFijoMensual);
             nuevoSueldo.setBonificacionAniosServicio(bonificacionPorAniosServicio);
             nuevoSueldo.setPagoHorasExtras(pagoHorasExtras);
@@ -131,4 +131,15 @@ public class SueldoService {
         double bonificacionPorAniosServicio = restTemplate.getForObject("http://localhost:8005/oficina/getBonificacionPorAniosServicio/" + rutEmpleado, double.class);
         return bonificacionPorAniosServicio;
     }
+
+    public double getPagoHorasExtras(String rutEmpleado){
+        double pagoHorasExtras = restTemplate.getForObject("http://localhost:8005/oficina/getPagoHorasExtras/" + rutEmpleado, double.class);
+        return pagoHorasExtras;
+    }
+
+    public List<Integer> getAtrasos(String rutEmpleado){
+        List<Integer> atrasos = restTemplate.getForObject("http://localhost:8003/oficina/getAtrasos/" + rutEmpleado, List.class);
+        return atrasos;
+    }
+
 }
