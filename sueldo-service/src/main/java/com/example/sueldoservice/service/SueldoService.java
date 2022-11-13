@@ -75,8 +75,8 @@ public class SueldoService {
             double bonificacionPorAniosServicio = getBonificacionPorAniosServicio(empleados[i].getRutEmpleado());
             double pagoHorasExtras              = getPagoHorasExtras(empleados[i].getRutEmpleado());
             List<Integer> atrasos               = getAtrasos(empleados[i].getRutEmpleado());
-            double descuentoPorAtraso           = oficinaService.calcularDescuentoPorAtraso(sueldoFijoMensual,atrasos);
-            double descuentoPorInasistencia     = oficinaService.calcularDescuentoPorInasistencia(sueldoFijoMensual,justificativos,empleados[i]);
+            double descuentoPorAtraso           = getDescuentoPorAtrasos(empleados[i].getRutEmpleado());
+            double descuentoPorInasistencia     = getDescuentoPorInasistencia(empleados[i].getRutEmpleado());
 
             double sueldoBruto           = calcularSueldoBruto(sueldoFijoMensual,bonificacionPorAniosServicio,pagoHorasExtras,descuentoPorAtraso,descuentoPorInasistencia);
             double cotizacionPrevisional = calcularCotizacionPrevisional(sueldoBruto);
@@ -145,6 +145,11 @@ public class SueldoService {
     public double getDescuentoPorAtrasos(String rutEmpleado){
         double descuentoPorAtrasos = restTemplate.getForObject("http://localhost:8005/oficina/getDescuentoPorAtrasos/" + rutEmpleado, double.class);
         return descuentoPorAtrasos;
+    }
+
+    public double getDescuentoPorInasistencia(String rutEmpleado){
+        double descuentoPorInasistencia = restTemplate.getForObject("http://localhost:8005/oficina/getDescuentoPorInasistencia/" + rutEmpleado, double.class);
+        return descuentoPorInasistencia;
     }
 
 }
