@@ -65,13 +65,14 @@ public class SueldoService {
         return sueldoFinal;
     }
 
-    /*public void calcularPlanilla(List<EmpleadoModel> empleados, List<JustificativoModel> justificativos, List<DatarelojModel> marcasReloj, List<AutorizacionModel> autorizaciones){
+    public void calcularPlanilla(List<EmpleadoModel> empleados, List<JustificativoModel> justificativos, List<DatarelojModel> marcasReloj, List<AutorizacionModel> autorizaciones){
 
         int i=0;
         while(i<empleados.size()){
 
-            double sueldoFijoMensual            = oficinaService.calcularSueldoFijoMensual(empleados.get(i));
-            double bonificacionPorAniosServicio = oficinaService.calcularBonificacionPorAniosServicio(empleados.get(i),sueldoFijoMensual);
+            // aquí hay que llamar al controlador de oficina rrhh
+            double sueldoFijoMensual            = getSueldoFijoMensual(empleados.get(i).getRutEmpleado());
+            double bonificacionPorAniosServicio = getBonificacionPorAniosServicio(empleados.get(i).getRutEmpleado());
             double pagoHorasExtras              = oficinaService.calcularPagoHorasExtras(empleados.get(i),autorizaciones);
             List<Integer> atrasos               = dataRelojService.calcularAtrasos(marcasReloj,empleados.get(i));
             double descuentoPorAtraso           = oficinaService.calcularDescuentoPorAtraso(sueldoFijoMensual,atrasos);
@@ -99,7 +100,7 @@ public class SueldoService {
 
             i=i+1;
         }
-    }*/
+    }
 
     public EmpleadoModel[] getEmpleados(){
         EmpleadoModel[] empleados = restTemplate.getForObject("http://localhost:8002/empleado", EmpleadoModel[].class);
@@ -119,5 +120,15 @@ public class SueldoService {
     public DatarelojModel[] getMarcasReloj(){
         DatarelojModel[] marcasReloj = restTemplate.getForObject("http://localhost:8003/datareloj", DatarelojModel[].class);
         return marcasReloj;
+    }
+
+    public double getSueldoFijoMensual(String rutEmpleado){
+        double sueldoFijoMensual = restTemplate.getForObject("http://localhost:8005/oficina/getSueldoFijoMensual/" + rutEmpleado, double.class);
+        return sueldoFijoMensual;
+    }
+
+    public double getBonificacionPorAniosServicio(String rutEmpleado){
+        double bonificacionPorAniosServicio = restTemplate.getForObject("http://localhost:8005/oficina/getBonificacionPorAniosServicio/" + rutEmpleado, double.class);
+        return bonificacionPorAniosServicio;
     }
 }
