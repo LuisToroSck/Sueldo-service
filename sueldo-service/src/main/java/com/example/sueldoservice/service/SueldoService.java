@@ -5,6 +5,7 @@ import com.example.sueldoservice.model.*;
 import com.example.sueldoservice.repository.SueldoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class SueldoService {
 
     @Autowired
     private SueldoRepository sueldoRepository;
+
+    RestTemplate restTemplate = new RestTemplate();
 
     /*@Autowired
     private OficinaRRHH oficinaService;
@@ -97,4 +100,9 @@ public class SueldoService {
             i=i+1;
         }
     }*/
+
+    public EmpleadoModel[] getEmpleados(){
+        EmpleadoModel[] empleados = restTemplate.getForObject("http://localhost:8002/empleado", EmpleadoModel[].class);
+        return empleados;
+    }
 }
