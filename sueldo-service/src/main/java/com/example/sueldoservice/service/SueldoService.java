@@ -105,4 +105,9 @@ public class SueldoService {
         EmpleadoModel[] empleados = restTemplate.getForObject("http://localhost:8002/empleado", EmpleadoModel[].class);
         return empleados;
     }
+
+    public JustificativoModel[] getJustificativos(){
+        JustificativoModel[] justificativos = restTemplate.getForObject("http://localhost:8004/justificativo", JustificativoModel[].class);
+        return justificativos;
+    }
 }

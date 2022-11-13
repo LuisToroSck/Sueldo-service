@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.sueldoservice.entity.SueldoEntity;
-import com.example.sueldoservice.model.EmpleadoModel;
+import com.example.sueldoservice.model.*;
 import com.example.sueldoservice.service.SueldoService;
 
 @Controller
@@ -27,5 +27,11 @@ public class SueldoController {
     public ResponseEntity<EmpleadoModel[]> getEmpleados(){
         EmpleadoModel[] empleados = sueldoService.getEmpleados();
         return ResponseEntity.ok(empleados);
+    }
+
+    @GetMapping("/getJustificativos")
+    public ResponseEntity<JustificativoModel[]> getJustificativos(){
+        JustificativoModel[] justificativos = sueldoService.getJustificativos();
+        return ResponseEntity.ok(justificativos);
     }
 }
