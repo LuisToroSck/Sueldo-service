@@ -142,4 +142,9 @@ public class SueldoService {
         return atrasos;
     }
 
+    public double getDescuentoPorAtrasos(String rutEmpleado){
+        double descuentoPorAtrasos = restTemplate.getForObject("http://localhost:8005/oficina/getDescuentoPorAtrasos/" + rutEmpleado, double.class);
+        return descuentoPorAtrasos;
+    }
+
 }
