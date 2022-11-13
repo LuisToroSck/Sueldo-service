@@ -40,4 +40,10 @@ public class SueldoController {
         AutorizacionModel[] autorizaciones = sueldoService.getAutorizaciones();
         return ResponseEntity.ok(autorizaciones);
     }
+
+    @GetMapping("/getMarcasReloj")
+    public ResponseEntity<DatarelojModel[]> getMarcasReloj(){
+        DatarelojModel[] marcasReloj = sueldoService.getMarcasReloj();
+        return ResponseEntity.ok(marcasReloj);
+    }
 }

@@ -115,4 +115,9 @@ public class SueldoService {
         AutorizacionModel[] autorizaciones = restTemplate.getForObject("http://localhost:8001/autorizacion", AutorizacionModel[].class);
         return autorizaciones;
     }
+
+    public DatarelojModel[] getMarcasReloj(){
+        DatarelojModel[] marcasReloj = restTemplate.getForObject("http://localhost:8003/datareloj", DatarelojModel[].class);
+        return marcasReloj;
+    }
 }
