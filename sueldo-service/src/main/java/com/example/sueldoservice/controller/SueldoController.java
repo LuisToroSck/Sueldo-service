@@ -34,4 +34,10 @@ public class SueldoController {
         JustificativoModel[] justificativos = sueldoService.getJustificativos();
         return ResponseEntity.ok(justificativos);
     }
+
+    @GetMapping("/getAutorizaciones")
+    public ResponseEntity<AutorizacionModel[]> getAutorizaciones(){
+        AutorizacionModel[] autorizaciones = sueldoService.getAutorizaciones();
+        return ResponseEntity.ok(autorizaciones);
+    }
 }
