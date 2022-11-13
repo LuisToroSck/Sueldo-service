@@ -18,14 +18,14 @@ public class SueldoController {
     SueldoService sueldoService;
 
     @GetMapping("/calcularPlanilla")
-    public ResponseEntity<List<SueldoEntity>> calcularPlanilla(){
+    public void calcularPlanilla(){
         EmpleadoModel[] empleados           = sueldoService.getEmpleados();
         JustificativoModel[] justificativos = sueldoService.getJustificativos();
         DatarelojModel[] marcasReloj        = sueldoService.getMarcasReloj();
         AutorizacionModel[] autorizaciones  = sueldoService.getAutorizaciones();
 
-        List<SueldoEntity> sueldos = calcularPlanilla(empleados,justificativos,marcasReloj,autorizaciones);
-        return ResponseEntity.ok(sueldos);
+        sueldoService.calcularPlanilla(empleados,justificativos,marcasReloj,autorizaciones);
+
     }
 
     @GetMapping("/getEmpleados")
