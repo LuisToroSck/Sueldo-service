@@ -71,12 +71,12 @@ public class SueldoService {
         while(i<empleados.length){
 
             // aquí hay que llamar al controlador de oficina rrhh
-            double sueldoFijoMensual            = getSueldoFijoMensual(empleados[i].getRutEmpleado());
-            double bonificacionPorAniosServicio = getBonificacionPorAniosServicio(empleados[i].getRutEmpleado());
-            double pagoHorasExtras              = getPagoHorasExtras(empleados[i].getRutEmpleado());
-            List<Integer> atrasos               = getAtrasos(empleados[i].getRutEmpleado());
-            double descuentoPorAtraso           = getDescuentoPorAtrasos(empleados[i].getRutEmpleado());
-            double descuentoPorInasistencia     = getDescuentoPorInasistencia(empleados[i].getRutEmpleado());
+            double sueldoFijoMensual            = getSueldoFijoMensual(empleados[i].getId());
+            double bonificacionPorAniosServicio = getBonificacionPorAniosServicio(empleados[i].getId());
+            double pagoHorasExtras              = getPagoHorasExtras(empleados[i].getId());
+            List<Integer> atrasos               = getAtrasos(empleados[i].getId());
+            double descuentoPorAtraso           = getDescuentoPorAtrasos(empleados[i].getId());
+            double descuentoPorInasistencia     = getDescuentoPorInasistencia(empleados[i].getId());
 
             double sueldoBruto           = calcularSueldoBruto(sueldoFijoMensual,bonificacionPorAniosServicio,pagoHorasExtras,descuentoPorAtraso,descuentoPorInasistencia);
             double cotizacionPrevisional = calcularCotizacionPrevisional(sueldoBruto);
@@ -122,33 +122,33 @@ public class SueldoService {
         return marcasReloj;
     }
 
-    public double getSueldoFijoMensual(String rutEmpleado){
-        double sueldoFijoMensual = restTemplate.getForObject("http://localhost:8005/oficina/getSueldoFijoMensual/" + rutEmpleado, double.class);
+    public double getSueldoFijoMensual(Long id){
+        double sueldoFijoMensual = restTemplate.getForObject("http://localhost:8005/oficina/getSueldoFijoMensual/" + id, double.class);
         return sueldoFijoMensual;
     }
 
-    public double getBonificacionPorAniosServicio(String rutEmpleado){
-        double bonificacionPorAniosServicio = restTemplate.getForObject("http://localhost:8005/oficina/getBonificacionPorAniosServicio/" + rutEmpleado, double.class);
+    public double getBonificacionPorAniosServicio(Long id){
+        double bonificacionPorAniosServicio = restTemplate.getForObject("http://localhost:8005/oficina/getBonificacionPorAniosServicio/" + id, double.class);
         return bonificacionPorAniosServicio;
     }
 
-    public double getPagoHorasExtras(String rutEmpleado){
-        double pagoHorasExtras = restTemplate.getForObject("http://localhost:8005/oficina/getPagoHorasExtras/" + rutEmpleado, double.class);
+    public double getPagoHorasExtras(Long id){
+        double pagoHorasExtras = restTemplate.getForObject("http://localhost:8005/oficina/getPagoHorasExtras/" + id, double.class);
         return pagoHorasExtras;
     }
 
-    public List<Integer> getAtrasos(String rutEmpleado){
-        List<Integer> atrasos = restTemplate.getForObject("http://localhost:8003/oficina/getAtrasos/" + rutEmpleado, List.class);
+    public List<Integer> getAtrasos(Long id){
+        List<Integer> atrasos = restTemplate.getForObject("http://localhost:8003/datareloj/getAtrasos/" + id, List.class);
         return atrasos;
     }
 
-    public double getDescuentoPorAtrasos(String rutEmpleado){
-        double descuentoPorAtrasos = restTemplate.getForObject("http://localhost:8005/oficina/getDescuentoPorAtrasos/" + rutEmpleado, double.class);
+    public double getDescuentoPorAtrasos(Long id){
+        double descuentoPorAtrasos = restTemplate.getForObject("http://localhost:8005/oficina/getDescuentoPorAtrasos/" + id, double.class);
         return descuentoPorAtrasos;
     }
 
-    public double getDescuentoPorInasistencia(String rutEmpleado){
-        double descuentoPorInasistencia = restTemplate.getForObject("http://localhost:8005/oficina/getDescuentoPorInasistencia/" + rutEmpleado, double.class);
+    public double getDescuentoPorInasistencia(Long id){
+        double descuentoPorInasistencia = restTemplate.getForObject("http://localhost:8005/oficina/getDescuentoPorInasistencia/" + id, double.class);
         return descuentoPorInasistencia;
     }
 
