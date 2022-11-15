@@ -18,7 +18,7 @@ public class SueldoController {
     SueldoService sueldoService;
 
     @GetMapping("/calcularPlanilla")
-    public void calcularPlanilla(){
+    public ResponseEntity calcularPlanilla(){
         EmpleadoModel[] empleados           = sueldoService.getEmpleados();
         JustificativoModel[] justificativos = sueldoService.getJustificativos();
         DatarelojModel[] marcasReloj        = sueldoService.getMarcasReloj();
@@ -26,6 +26,7 @@ public class SueldoController {
 
         sueldoService.calcularPlanilla(empleados,justificativos,marcasReloj,autorizaciones);
 
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/getEmpleados")
@@ -51,4 +52,18 @@ public class SueldoController {
         DatarelojModel[] marcasReloj = sueldoService.getMarcasReloj();
         return ResponseEntity.ok(marcasReloj);
     }
+
+    @GetMapping("/listarSueldos")
+    public ResponseEntity<List<SueldoEntity>> listarSueldos(){
+        List<SueldoEntity> sueldos = sueldoService.listarSueldos();
+        return ResponseEntity.ok(sueldos);
+    }
+
+    @PostMapping("/eliminar")
+    public ResponseEntity<List<SueldoEntity>> eliminarSueldos(){
+        sueldoService.eliminarSueldos();
+        List<SueldoEntity> sueldos = sueldoService.listarSueldos();
+        return ResponseEntity.ok(sueldos);
+    }
+
 }
