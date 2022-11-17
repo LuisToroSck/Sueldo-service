@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.sueldoservice.entity.SueldoEntity;
 import com.example.sueldoservice.model.*;
 import com.example.sueldoservice.service.SueldoService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @RequestMapping("/sueldo")
 public class SueldoController {
@@ -55,6 +57,13 @@ public class SueldoController {
 
     @GetMapping("/listarSueldos")
     public ResponseEntity<List<SueldoEntity>> listarSueldos(){
+        sueldoService.eliminarSueldos();
+        EmpleadoModel[] empleados           = sueldoService.getEmpleados();
+        JustificativoModel[] justificativos = sueldoService.getJustificativos();
+        DatarelojModel[] marcasReloj        = sueldoService.getMarcasReloj();
+        AutorizacionModel[] autorizaciones  = sueldoService.getAutorizaciones();
+
+        sueldoService.calcularPlanilla(empleados,justificativos,marcasReloj,autorizaciones);
         List<SueldoEntity> sueldos = sueldoService.listarSueldos();
         return ResponseEntity.ok(sueldos);
     }
