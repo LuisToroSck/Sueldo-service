@@ -2,22 +2,41 @@ package com.example.sueldoservice.controller;
 
 import java.util.List;
 
+import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.sueldoservice.entity.SueldoEntity;
 import com.example.sueldoservice.model.*;
+import com.example.sueldoservice.service.JwtUtilService;
 import com.example.sueldoservice.service.SueldoService;
 
 @CrossOrigin(origins = "http://localhost:3000")
-@Controller
+@RestController
 @RequestMapping("/sueldo")
 public class SueldoController {
     @Autowired
     SueldoService sueldoService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    UserDetailsService usuarioDetailsService;
+
+    @Autowired
+    private JwtUtilService jwtUtilService;
 
     @GetMapping("/calcularPlanilla")
     public ResponseEntity calcularPlanilla(){
@@ -73,6 +92,19 @@ public class SueldoController {
         sueldoService.eliminarSueldos();
         List<SueldoEntity> sueldos = sueldoService.listarSueldos();
         return ResponseEntity.ok(sueldos);
+    }
+    
+    @PostMapping("/autenticar")
+    public ResponseEntity<TokenInfo> authenticate(@RequestBody UserInfo userInfo) {
+
+        authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(userInfo.getUsuario(), userInfo.getClave()));
+
+        final UserDetails userDetails = usuarioDetailsService.loadUserByUsername(userInfo.getUsuario());
+        final String jwt = jwtUtilService.generateToken(userDetails);
+        TokenInfo tokenInfo = new TokenInfo(jwt);
+
+        return ResponseEntity.ok(tokenInfo);
     }
 
 }

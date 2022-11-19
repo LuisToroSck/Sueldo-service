@@ -17,12 +17,6 @@ public class SueldoService {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    /*@Autowired
-    private OficinaRRHH oficinaService;
-
-    @Autowired
-    private DataRelojService dataRelojService;*/
-
     public void eliminarSueldos(){
         sueldoRepository.deleteAll();
     }
