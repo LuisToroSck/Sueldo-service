@@ -1,4 +1,4 @@
-package com.example.sueldoservice.model;
+/*package com.example.sueldoservice.model;
 
 import java.io.Serializable;
 
@@ -15,3 +15,4 @@ public class TokenInfo implements Serializable{
         return this.jwtToken;
     }
 }
+*/

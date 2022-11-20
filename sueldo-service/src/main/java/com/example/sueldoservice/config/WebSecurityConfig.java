@@ -1,4 +1,4 @@
-package com.example.sueldoservice.config;
+/*package com.example.sueldoservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -42,10 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/sueldo/autenticar/**").permitAll()
-                .antMatchers("/sueldo/listarSueldos").hasRole("ADMIN")
-                .antMatchers("/sueldo/getJustificativos").hasRole("USER")
-                .antMatchers("/autorizacion/**").hasRole("ADMIN")
+
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -57,4 +54,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(usuarioDetailsService);
     }
-}
+}*/

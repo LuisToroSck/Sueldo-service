@@ -1,4 +1,4 @@
-package com.example.sueldoservice.entity;
+/*package com.example.sueldoservice.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +20,4 @@ public class UsuarioEntity {
     private String clave;
     private String rol;
 
-}
+}*/
