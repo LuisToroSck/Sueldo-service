@@ -22,7 +22,7 @@ import com.example.sueldoservice.model.*;
 //import com.example.sueldoservice.service.JwtUtilService;
 import com.example.sueldoservice.service.SueldoService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3001")
 @RestController
 @RequestMapping("/sueldo")
 public class SueldoController {
