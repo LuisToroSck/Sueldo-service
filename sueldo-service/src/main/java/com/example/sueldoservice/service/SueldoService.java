@@ -20,7 +20,8 @@ public class SueldoService {
     @Autowired
     private SueldoRepository sueldoRepository;
 
-    RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    RestTemplate restTemplate;
 
     public void eliminarSueldos(){
         sueldoRepository.deleteAll();
@@ -102,12 +103,25 @@ public class SueldoService {
     }
 
     public EmpleadoModel[] getEmpleados(){
-        EmpleadoModel[] empleados = restTemplate.getForObject("http://localhost:8082/empleado", EmpleadoModel[].class);
+        EmpleadoModel[] empleados = restTemplate.getForObject("http://empleado-service/empleado", EmpleadoModel[].class);
         return empleados;
     }
 
+    /*public List<EmpleadoModel> getEmpleados() {
+        String url = "http://empleado-service/empleado";
+        ResponseEntity<Object[]> response = restTemplate.getForEntity(url, Object[].class); // Se usa lista de Object para mapear la repuesta JSON
+        Object[] records = response.getBody(); // Obtener lista de empleados desde microservicio empleados
+        if (records == null) {
+            return null;
+        }
+        ObjectMapper mapper = new ObjectMapper(); // Mapper desde object a modelo Empleado
+        return Arrays.stream(records)
+                .map(empleado -> mapper.convertValue(empleado, EmpleadoModel.class))
+                .collect(Collectors.toList());
+    }*/
+
     public JustificativoModel[] getJustificativos(){
-        JustificativoModel[] justificativos = restTemplate.getForObject("http://localhost:8082/justificativo", JustificativoModel[].class);
+        JustificativoModel[] justificativos = restTemplate.getForObject("http://justificativo-service/justificativo", JustificativoModel[].class);
         return justificativos;
     }
     /*public List<JustificativoModel> getJustificativos() {
@@ -124,42 +138,42 @@ public class SueldoService {
     }*/
 
     public AutorizacionModel[] getAutorizaciones(){
-        AutorizacionModel[] autorizaciones = restTemplate.getForObject("http://localhost:8082/autorizacion", AutorizacionModel[].class);
+        AutorizacionModel[] autorizaciones = restTemplate.getForObject("http://autorizacion-service/autorizacion", AutorizacionModel[].class);
         return autorizaciones;
     }
 
     public DatarelojModel[] getMarcasReloj(){
-        DatarelojModel[] marcasReloj = restTemplate.getForObject("http://localhost:8082/datareloj", DatarelojModel[].class);
+        DatarelojModel[] marcasReloj = restTemplate.getForObject("http://datareloj-service/datareloj", DatarelojModel[].class);
         return marcasReloj;
     }
 
     public double getSueldoFijoMensual(Long id){
-        double sueldoFijoMensual = restTemplate.getForObject("http://localhost:8082/oficina/getSueldoFijoMensual/" + id, double.class);
+        double sueldoFijoMensual = restTemplate.getForObject("http://oficinarrhh-service/oficina/getSueldoFijoMensual/" + id, double.class);
         return sueldoFijoMensual;
     }
 
     public double getBonificacionPorAniosServicio(Long id){
-        double bonificacionPorAniosServicio = restTemplate.getForObject("http://localhost:8082/oficina/getBonificacionPorAniosServicio/" + id, double.class);
+        double bonificacionPorAniosServicio = restTemplate.getForObject("http://oficinarrhh-service/oficina/getBonificacionPorAniosServicio/" + id, double.class);
         return bonificacionPorAniosServicio;
     }
 
     public double getPagoHorasExtras(Long id){
-        double pagoHorasExtras = restTemplate.getForObject("http://localhost:8082/oficina/getPagoHorasExtras/" + id, double.class);
+        double pagoHorasExtras = restTemplate.getForObject("http://oficinarrhh-service/oficina/getPagoHorasExtras/" + id, double.class);
         return pagoHorasExtras;
     }
 
     public List<Integer> getAtrasos(Long id){
-        List<Integer> atrasos = restTemplate.getForObject("http://localhost:8082/datareloj/getAtrasos/" + id, List.class);
+        List<Integer> atrasos = restTemplate.getForObject("http://datareloj-service/datareloj/getAtrasos/" + id, List.class);
         return atrasos;
     }
 
     public double getDescuentoPorAtrasos(Long id){
-        double descuentoPorAtrasos = restTemplate.getForObject("http://localhost:8082/oficina/getDescuentoPorAtrasos/" + id, double.class);
+        double descuentoPorAtrasos = restTemplate.getForObject("http://oficinarrhh-service/oficina/getDescuentoPorAtrasos/" + id, double.class);
         return descuentoPorAtrasos;
     }
 
     public double getDescuentoPorInasistencia(Long id){
-        double descuentoPorInasistencia = restTemplate.getForObject("http://localhost:8082/oficina/getDescuentoPorInasistencia/" + id, double.class);
+        double descuentoPorInasistencia = restTemplate.getForObject("http://oficinarrhh-service/oficina/getDescuentoPorInasistencia/" + id, double.class);
         return descuentoPorInasistencia;
     }
 
