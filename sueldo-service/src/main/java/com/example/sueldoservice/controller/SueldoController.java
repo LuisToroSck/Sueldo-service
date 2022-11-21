@@ -38,17 +38,17 @@ public class SueldoController {
     @Autowired
     private JwtUtilService jwtUtilService;*/
 
-    @GetMapping("/calcularPlanilla")
+    /*@GetMapping("/calcularPlanilla")
     public ResponseEntity calcularPlanilla(){
         EmpleadoModel[] empleados           = sueldoService.getEmpleados();
-        JustificativoModel[] justificativos = sueldoService.getJustificativos();
+        List<JustificativoModel> justificativos = sueldoService.getJustificativos();
         DatarelojModel[] marcasReloj        = sueldoService.getMarcasReloj();
         AutorizacionModel[] autorizaciones  = sueldoService.getAutorizaciones();
 
         sueldoService.calcularPlanilla(empleados,justificativos,marcasReloj,autorizaciones);
 
         return ResponseEntity.ok().build();
-    }
+    }*/
 
     @GetMapping("/getEmpleados")
     public ResponseEntity<EmpleadoModel[]> getEmpleados(){
@@ -106,5 +106,12 @@ public class SueldoController {
 
         return ResponseEntity.ok(tokenInfo);
     }*/
+
+    @GetMapping
+    public ResponseEntity<List<SueldoEntity>> getrSueldos(){
+        List<SueldoEntity> sueldos = sueldoService.listarSueldos();
+        return ResponseEntity.ok(sueldos);
+    }
+
 
 }

@@ -10,6 +10,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JustificativoModel {
+    private Long idJustificativo;
     private String rutEmpleado;
     private int justificada;
     private Date fecha;

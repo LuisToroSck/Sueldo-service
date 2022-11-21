@@ -4,6 +4,10 @@ spring:
   cloud:
     config:
       enabled: true
+      fail-fast: true
+      retry:
+        maxAttempts: 200
+        maxInterval: 10000
       uri: http://localhost:8081
   datasource:
     url: jdbc:mysql://localhost:3307/sueldo_db
