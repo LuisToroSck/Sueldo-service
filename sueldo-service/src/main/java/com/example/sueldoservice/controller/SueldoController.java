@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 /*import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,24 +24,25 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.sueldoservice.entity.SueldoEntity;
 import com.example.sueldoservice.model.*;
+import com.example.sueldoservice.service.JwtUtilService;
 //import com.example.sueldoservice.service.JwtUtilService;
 import com.example.sueldoservice.service.SueldoService;
 
-@CrossOrigin(origins = "http://localhost:3001")
+//@CrossOrigin(origins = "http://localhost:3001")
 @RestController
 @RequestMapping("/sueldo")
 public class SueldoController {
     @Autowired
     SueldoService sueldoService;
 
-    /*@Autowired
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
     UserDetailsService usuarioDetailsService;
 
     @Autowired
-    private JwtUtilService jwtUtilService;*/
+    private JwtUtilService jwtUtilService;
 
     /*@GetMapping("/calcularPlanilla")
     public ResponseEntity calcularPlanilla(){
@@ -95,7 +100,7 @@ public class SueldoController {
         return ResponseEntity.ok(sueldos);
     }
     
-    /*@PostMapping("/autenticar")
+    @PostMapping("/autenticar")
     public ResponseEntity<TokenInfo> authenticate(@RequestBody UserInfo userInfo) {
 
         authenticationManager.authenticate(
@@ -106,7 +111,7 @@ public class SueldoController {
         TokenInfo tokenInfo = new TokenInfo(jwt);
 
         return ResponseEntity.ok(tokenInfo);
-    }*/
+    }
 
     @GetMapping
     public ResponseEntity<List<SueldoEntity>> getrSueldos(){

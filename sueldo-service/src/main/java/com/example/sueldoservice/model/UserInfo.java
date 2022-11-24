@@ -1,4 +1,4 @@
-/*package com.example.sueldoservice.model;
+package com.example.sueldoservice.model;
 
 import java.io.Serializable;
 
@@ -30,4 +30,3 @@ public class UserInfo implements Serializable{
         this.clave = clave;
     }
 }
-*/

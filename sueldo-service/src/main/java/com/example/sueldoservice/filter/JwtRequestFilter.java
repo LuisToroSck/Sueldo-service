@@ -1,4 +1,4 @@
-/*package com.example.sueldoservice.filter;
+package com.example.sueldoservice.filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,4 +54,3 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 }
-*/

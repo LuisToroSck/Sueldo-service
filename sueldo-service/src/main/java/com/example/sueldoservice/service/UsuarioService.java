@@ -1,4 +1,4 @@
-/*package com.example.sueldoservice.service;
+package com.example.sueldoservice.service;
 
 import java.util.List;
 
@@ -27,4 +27,3 @@ public class UsuarioService {
     }
 
 }
-*/

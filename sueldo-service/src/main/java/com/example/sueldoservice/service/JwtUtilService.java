@@ -1,4 +1,4 @@
-/*package com.example.sueldoservice.service;
+package com.example.sueldoservice.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -60,4 +60,3 @@ public class JwtUtilService {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
-*/
